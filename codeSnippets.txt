@@ -1,0 +1,38 @@
+#define basic synthesizer waveform functions
+saw = np.ndarray(shape = (samples), dtype = np.int16)
+sine = np.ndarray(shape = (samples), dtype = np.int16)
+square = np.ndarray(shape = (samples), dtype = np.int16)
+triangle = np.ndarray(shape = (samples), dtype = np.int16)
+
+
+#plot single period of a wave
+fig,ax =plt.subplots()
+ax.plot(time,wavPeriod,label='15kHz Tone')
+ax.set_title('numpy WAV data')
+ax.set_xlabel('Time (S)')
+ax.set_ylabel('Amplitude (V)?')
+ax.legend()
+
+
+#duplicate wave to make data for file 
+periodCount = 0
+for i in range(0,samples):
+    waveform[i] = wavPeriod[periodCount]
+    periodCount = periodCount+1
+    periodCount = periodCount%wavSampNum
+
+
+
+#save as .wav file
+fileName = "fireCracker.wav"
+
+toneWav = wave.open(fileName,"w")
+
+toneWav.setnchannels(1)
+toneWav.setframerate(sampleRate)
+toneWav.setnframes(samples)
+toneWav.setsampwidth(2)
+
+toneWav.writeframes(waveform)
+
+toneWav.close()  

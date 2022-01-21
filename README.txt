@@ -1,0 +1,1 @@
+This folder contains code to create EDM music. The goal is to make custom sounds using dsp techniques
